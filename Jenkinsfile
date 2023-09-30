@@ -8,10 +8,6 @@ pipeline {
                 bat './mvnw clean compile'
             }
         }
-        stage('Run') {
-            steps {
-            }
-        }
         stage('Publish') {
             steps {
                 bat './mvnw package'
