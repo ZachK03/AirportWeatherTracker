@@ -22,9 +22,9 @@ pipeline {
         stage('Run') {
             steps {
                 dir('target') {
-                    bat 'java *.jar test KLEE'
-                    bat 'java *.jar test KMCO'
-                    bat 'java *.jar test KORL'
+                    bat 'java -jar *.jar test KLEE'
+                    bat 'java -jar *.jar test KMCO'
+                    bat 'java -jar *.jar test KORL'
                 }
             }
         }
