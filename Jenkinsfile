@@ -10,9 +10,6 @@ pipeline {
         }
         stage('Run') {
             steps {
-                bat 'java test KLEE'
-                bat 'java test KORL'
-                bat 'java test KMCO'
             }
         }
         stage('Publish') {
