@@ -21,11 +21,7 @@ pipeline {
         }
         stage('Run') {
             steps {
-                dir('target') {
-                    bat 'java -jar *.jar test KLEE'
-                    bat 'java -jar *.jar test KMCO'
-                    bat 'java -jar *.jar test KORL'
-                }
+                bat './mvnw clean test -DRUN_MODE=${test}'
             }
         }
     }

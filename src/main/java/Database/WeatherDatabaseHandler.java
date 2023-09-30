@@ -4,10 +4,12 @@ import entity.AirportEntity;
 import entity.WeatherdataEntity;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 public class WeatherDatabaseHandler {
-    EntityManagerFactory entityManagerFactory = null;
-    EntityManager entityManager = null;
-    EntityTransaction transaction = null;
+    EntityManagerFactory entityManagerFactory;
+    EntityManager entityManager;
+    EntityTransaction transaction;
 
 
 
@@ -15,6 +17,17 @@ public class WeatherDatabaseHandler {
         entityManagerFactory = Persistence.createEntityManagerFactory("default");
         entityManager = entityManagerFactory.createEntityManager();
         transaction = entityManager.getTransaction();
+    }
+
+    public List<AirportEntity> getAllAirports() {
+        List<AirportEntity> list = null;
+        try {
+            TypedQuery<AirportEntity> allAirports = entityManager.createNamedQuery("AirportEntity.getAll", AirportEntity.class);
+            list = allAirports.getResultList();
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public AirportEntity getAirportByCode(String identifier) {

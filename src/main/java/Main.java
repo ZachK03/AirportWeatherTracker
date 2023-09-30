@@ -10,9 +10,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    public static WeatherDatabaseHandler db = new WeatherDatabaseHandler();
+    public static WeatherConfigurator weatherConfigurator = new WeatherConfigurator();
+
     public static String getIdentifier() {
         Scanner scanner = new Scanner(System.in);
-        String identifier = "";
+        String identifier;
         do {
             System.out.println("Enter the airport code: ");
             identifier = scanner.nextLine();
@@ -21,8 +24,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        WeatherDatabaseHandler db = new WeatherDatabaseHandler();
-        WeatherConfigurator weatherConfigurator = new WeatherConfigurator();
 
         boolean skipInput = false;
         String identifier = null;
@@ -32,8 +33,8 @@ public class Main {
                 case "run":
                     identifier = getIdentifier();
 
-                    List<Integer> totals = new ArrayList<Integer>();
-                    List<Integer> counts = new ArrayList<Integer>();
+                    List<Integer> totals = new ArrayList<>();
+                    List<Integer> counts = new ArrayList<>();
                     try {
                         AirportEntity airport = db.getAirportByCode(identifier);
                         WeatherdataEntity weatherData = airport.getWeatherDataId();
@@ -46,7 +47,7 @@ public class Main {
 
                             totals.add((Integer) getTotal.invoke(weatherData));
                             counts.add((Integer) getCount.invoke(weatherData));
-                        };
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -64,10 +65,25 @@ public class Main {
             }
         }
 
+        String mvgArgs = System.getProperty("RUN_MODE");
+        switch (mvgArgs) {
+            case "test":
+                System.out.println("Testing all known airports.");
+                List<AirportEntity> allAirports = db.getAllAirports();
+                for(AirportEntity e : allAirports) {
+                    getAirportData(e.getAirportCode());
+                }
+                break;
+        }
+
         if(!skipInput) {
             identifier = getIdentifier();
         }
 
+        getAirportData(identifier);
+    }
+
+    public static void getAirportData(String identifier) {
         try {
             AirportEntity airport = db.getAirportByCode(identifier);
             WeatherdataEntity weatherData = airport.getWeatherDataId();
