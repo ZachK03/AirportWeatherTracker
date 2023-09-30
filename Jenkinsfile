@@ -19,5 +19,12 @@ pipeline {
                 }
             }
         }
+        stage('Run') {
+            steps {
+                bat 'java .\target\*.jar test KLEE'
+                bat 'java .\target\*.jar test KMCO'
+                bat 'java .\target\*.jar test KORL'
+            }
+        }
     }
 }
