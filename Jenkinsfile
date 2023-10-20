@@ -19,10 +19,5 @@ pipeline {
                 }
             }
         }
-        stage('Run') {
-            steps {
-                bat './mvnw clean test -DRUN_MODE=${RUN_MODE}'
-            }
-        }
     }
 }

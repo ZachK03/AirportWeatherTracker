@@ -14,7 +14,7 @@ public class WeatherConfigurator {
         aw.setLocation(identifier);
 
         HttpRequest getRequest = HttpRequest.newBuilder()
-                .uri(new URI("https://beta.aviationweather.gov/cgi-bin/data/metar.php?ids=" + identifier))
+                .uri(new URI("https://aviationweather.gov/cgi-bin/data/metar.php?ids=" + identifier))
                 .build();
 
         HttpClient httpClient = HttpClient.newHttpClient();
