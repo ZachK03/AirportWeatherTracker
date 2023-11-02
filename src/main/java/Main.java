@@ -33,6 +33,10 @@ public class Main {
         if(args.length > 0) {
             switch (args[0]) {
                 case "run":
+                    if(allAirports.size() == 0) {
+                        System.out.println("No saved airports. Would you like to add one?");
+                        break;
+                    }
                     System.out.println("Displaying all known airports.");
                     for(AirportEntity airport : allAirports) {
                         List<Integer> totals = new ArrayList<>();
@@ -60,6 +64,10 @@ public class Main {
                     }
                     return;
                 case "test":
+                    if(allAirports.size() == 0) {
+                        System.out.println("No saved airports. Would you like to add one?");
+                        break;
+                    }
                     System.out.println("Testing all known airports.");
                     for(AirportEntity e : allAirports) {
                         dataHandler.getAirportData(e.getAirportCode());

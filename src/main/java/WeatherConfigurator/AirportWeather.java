@@ -131,7 +131,7 @@ public class AirportWeather {
     }
 
     public boolean isBadWeather() {
-        if(isConvective) return true;
+        if(isConvective()) return true;
         if(getM_visibility() < 3) return true;
         for(CloudLayer cl : getClouds()) {
             if((cl.getM_layerType() == LayerType.BROKEN || cl.getM_layerType() == LayerType.OVERCAST) && cl.getM_altitude() <= 3000) return true;
